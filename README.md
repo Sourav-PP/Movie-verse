@@ -28,6 +28,7 @@ Create a `.env` file:
 
 ```
 OMDB_API_KEY=your_api_key
+FRONTEND_URL=your_frontend_url
 PORT=3000
 ```
 
@@ -47,16 +48,22 @@ npm install
 npm start
 ```
 
+Create a `.env` file:
+
+```
+VITE_API_BASE_URL=your_backend_base_url
+```
 ---
 
 ## 📡 **API Endpoints**
 
-| Method | Endpoint                     | Description          |
-| ------ | ---------------------------- | -------------------- |
-| GET    | `/api/movies/search?q=query` | Search movies        |
-| GET    | `/api/movies/favorites`      | Get favorites list   |
-| POST   | `/api/movies/favorites`      | Add a favorite movie |
-| DELETE | `/api/movies/favorites/:id`  | Remove a favorite    |
+| Method | Endpoint                      | Description          |
+| ------ | ----------------------------- | -------------------- |
+| GET    | `/api/movies/search?q=query`  | Search movies        |
+| GET    | `/api/movies/details/:imdbID` | Get movie details    |
+| GET    | `/api/favorites`              | Get favorites list   |
+| POST   | `/api/favorites/:imdbID`      | Add a favorite movie |
+| DELETE | `/api/favorites/:imdbID`      | Remove a favorite    |
 
 ---
 

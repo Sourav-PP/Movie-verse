@@ -28,11 +28,6 @@ export class FavoritesRoutes {
     )
 
     this.route.get(
-      favoritesRoute.withId,
-      favoritesController.getFavorites,
-    )
-
-    this.route.get(
       favoritesRoute.isFavorite,
       favoritesController.isFavorite
     )
