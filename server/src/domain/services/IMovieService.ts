@@ -1,6 +1,6 @@
-import { Movie } from "../entities/Movie";
+import { MovieDetails, MovieSummary } from "../entities/Movie";
 
 export interface IMovieService {
-  search(query: string, page?: number): Promise<{ movies: Movie[], totalResults: number }>;
-  getMovieById(imdbID: string): Promise<Movie | null>;
+  search(query: string, page?: number): Promise<{ movies: MovieSummary[], totalResults: number }>;
+  getMovieById(imdbID: string): Promise<MovieDetails | null>;
 }

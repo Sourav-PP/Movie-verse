@@ -1,8 +1,13 @@
-export interface MovieSummary {
+export interface Movie {
   imdbID: string;
   Title: string;
   Year: string;
-  Poster?: string;
+  Poster: string;
+}
+
+export interface Rating {
+  Source: string;
+  Value: string;
 }
 
 export interface MovieDetails {
@@ -20,10 +25,7 @@ export interface MovieDetails {
   Country: string;
   Awards: string;
   Poster: string;
-  Ratings: {
-    Source: string;
-    Value: string;
-  }[];
+  Ratings: Rating[];
   Metascore: string;
   imdbRating: string;
   imdbVotes: string;

@@ -15,6 +15,11 @@ export class MovieRoutes {
       movieRoute.SEARCH,
       movieController.searchMovie,
     )
+
+    this.route.get(
+      movieRoute.GET_DETAILS,
+      movieController.getMovieById,
+    )
   }
 }
 

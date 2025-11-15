@@ -14,7 +14,7 @@ const movieService = new OmdbApi(appConfig.omdb.apiKey)
 const favoritesRepository = new FavoriteFileRepository(filePath);
 
 const movieUseCase = new MovieUseCase(movieService);
-const favoritesUseCase = new FavoritesUseCases(favoritesRepository)
+const favoritesUseCase = new FavoritesUseCases(favoritesRepository, movieService)
 
 export const movieController = new MovieController(movieUseCase);
 export const favoritesController = new FavoritesController(favoritesUseCase, movieService);

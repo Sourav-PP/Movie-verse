@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { IMovieService } from '../../domain/services/IMovieService';
-import { Movie } from '../../domain/entities/Movie';
+import { MovieSummary, MovieDetails } from '../../domain/entities/Movie';
 
 export class OmdbApi implements IMovieService {
     private _apiKey: string;
@@ -10,7 +10,7 @@ export class OmdbApi implements IMovieService {
         this._apiKey = apiKey;
     }
 
-    async search(query: string, page?: number): Promise<{ movies: Movie[]; totalResults: number }> {
+    async search(query: string, page?: number): Promise<{ movies: MovieSummary[]; totalResults: number }> {
         const res = await axios.get(this._apiUrl, {
             params: {
                 apikey: this._apiKey,
@@ -24,16 +24,16 @@ export class OmdbApi implements IMovieService {
             return { movies: [], totalResults: 0 };
         }
 
-        const movies: Movie[] = data.Search.map((m: any) => ({
+        const movies: MovieSummary[] = data.Search.map((m: any) => ({
             imdbID: m.imdbID,
-            title: m.Title,
-            year: m.Year,
-            poster: m.Poster,
+            Title: m.Title,
+            Year: m.Year,
+            Poster: m.Poster,
         }));
         return { movies, totalResults: parseInt(data.totalResults) };
     }
 
-    async getMovieById(imdbID: string): Promise<Movie | null> {
+    async getMovieById(imdbID: string): Promise<MovieDetails | null> {
         const res = await axios.get(this._apiUrl, {
             params: {
                 apikey: this._apiKey,
@@ -47,10 +47,31 @@ export class OmdbApi implements IMovieService {
         if (data.Response === 'False') return null;
 
         return {
-            imdbID: data.imdbID,
             Title: data.Title,
             Year: data.Year,
+            Rated: data.Rated,
+            Released: data.Released,
+            Runtime: data.Runtime,
+            Genre: data.Genre,
+            Director: data.Director,
+            Writer: data.Writer,
+            Actors: data.Actors,
+            Plot: data.Plot,
+            Language: data.Language,
+            Country: data.Country,
+            Awards: data.Awards,
             Poster: data.Poster,
-        }
+            Ratings: data.Ratings,
+            Metascore: data.Metascore,
+            imdbRating: data.imdbRating,
+            imdbVotes: data.imdbVotes,
+            imdbID: data.imdbID,
+            Type: data.Type,
+            DVD: data.DVD,
+            BoxOffice: data.BoxOffice,
+            Production: data.Production,
+            Website: data.Website,
+            Response: data.Response,
+        };
     }
 }

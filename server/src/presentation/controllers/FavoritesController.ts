@@ -36,11 +36,7 @@ export class FavoritesController {
                 throw new AppError(messages.ERROR.MISSING_MOVIE_INFO, HttpStatusCode.BadRequest);
             }
 
-            const movie = await this._movieService.getMovieById(imdbID);
-            if (!movie) {
-                throw new AppError(messages.ERROR.MOVIE_NOT_FOUND, HttpStatusCode.NotFound);
-            }
-            await this._favoritesUseCase.addFavorite(movie);
+            await this._favoritesUseCase.addFavorite(imdbID);
 
             res.status(HttpStatusCode.Created).json({
                 success: true,

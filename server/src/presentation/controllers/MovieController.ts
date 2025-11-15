@@ -2,14 +2,15 @@ import { Response, Request, NextFunction } from "express";
 import { IMovieUseCase } from "../../application/interfaces/IMovieUseCase";
 import { HttpStatusCode } from "axios";
 import { messages } from "../../shared/constants/messages";
+import { IMovieService } from "../../domain/services/IMovieService";
 
 export class MovieController {
-    private _movieUseCase: IMovieUseCase
+    private _movieUseCase: IMovieUseCase;
 
     constructor(
         movieUseCase: IMovieUseCase,
     ) {
-        this._movieUseCase = movieUseCase
+        this._movieUseCase = movieUseCase;
     }
 
     searchMovie = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -27,4 +28,20 @@ export class MovieController {
             next(error);
         }
     } 
+
+    getMovieById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        try {
+            const { imdbID } = req.params
+
+            const movie = await this._movieUseCase.getMovieDetails(imdbID);
+
+            res.status(HttpStatusCode.Ok).json({
+              success: true,
+              message: messages.SUCCESS.MOVIES_FETCHED,
+              data: movie
+            })
+        } catch (error) {
+            next(error);
+        }
+    }
 }

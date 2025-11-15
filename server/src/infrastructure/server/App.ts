@@ -3,6 +3,7 @@ import cors from 'cors';
 import { MovieRoutes } from '../../presentation/routes/MovieRoutes';
 import { FavoritesRoutes } from '../../presentation/routes/FavoritesRoutes';
 import { errorHandler } from '../../presentation/middlewares/errorHandler';
+import { appConfig } from '../config/config';
 
 export class App {
     public app: Application;
@@ -15,7 +16,10 @@ export class App {
     }
 
     private initializeMiddlewares(): void {
-        this.app.use(cors());
+        this.app.use(cors({
+            origin: appConfig.server.frontendUrl,
+            credentials: true,
+        }));
         this.app.use(express.json());
     }
 
